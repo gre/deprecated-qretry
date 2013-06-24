@@ -1,7 +1,3 @@
-/**
- * Qretry - Promise retry system for Q
- * http://github.com/gre/qretry
- */
 (function(){
 
   // Qretry
@@ -23,7 +19,8 @@
   // ---
   //
   // Returns a Promise resulting of a success call() or a maxRetry achieved (The rejected promise will contain the last call error).
-  //
+  // 
+  // ---
   var Qretry = function (call, options) {
     if (typeof call !== "function") {
       throw "Qretry: call must be a function";
@@ -38,6 +35,7 @@
       }
     }
 
+    // Recursive resolver
     function resolver (remainingTry, interval) {
       var result = Q.fcall(call);
       if (remainingTry <= 0) {
@@ -54,6 +52,7 @@
     return resolver(options.maxRetry, options.interval);
   };
 
+  // Default options
   Qretry.DEFAULT_OPTIONS = {
     maxRetry: 5,
     interval: 500,

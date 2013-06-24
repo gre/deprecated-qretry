@@ -1,8 +1,4 @@
-<!DOCTYPE html>  <html> <head>   <title>qretry.js</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link rel="stylesheet" media="all" href="docco.css" /> </head> <body>   <div id="container">     <div id="background"></div>          <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h1>               qretry.js             </h1>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>                            </td>             <td class="code">               <div class="highlight"><pre><span class="cm">/**</span>
-<span class="cm"> * Qretry - Promise retry system for Q</span>
-<span class="cm"> * http://github.com/gre/qretry</span>
-<span class="cm"> */</span>
-<span class="p">(</span><span class="kd">function</span><span class="p">(){</span></pre></div>             </td>           </tr>                               <tr id="section-2">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-2">&#182;</a>               </div>               <h1>Qretry</h1>
+<!DOCTYPE html>  <html> <head>   <title>qretry.js</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link rel="stylesheet" media="all" href="docco.css" /> </head> <body>   <div id="container">     <div id="background"></div>          <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h1>               qretry.js             </h1>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>                            </td>             <td class="code">               <div class="highlight"><pre><span class="p">(</span><span class="kd">function</span><span class="p">(){</span></pre></div>             </td>           </tr>                               <tr id="section-2">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-2">&#182;</a>               </div>               <h1>Qretry</h1>
 
 <p><em>Creates a Promise from the call function with a retry strategy.</em></p>
 
@@ -20,7 +16,9 @@
 
 <h2>Result</h2>
 
-<p>Returns a Promise resulting of a success call() or a maxRetry achieved (The rejected promise will contain the last call error).</p>             </td>             <td class="code">               <div class="highlight"><pre>  <span class="kd">var</span> <span class="nx">Qretry</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">call</span><span class="p">,</span> <span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+<p>Returns a Promise resulting of a success call() or a maxRetry achieved (The rejected promise will contain the last call error).</p>
+
+<hr />             </td>             <td class="code">               <div class="highlight"><pre>  <span class="kd">var</span> <span class="nx">Qretry</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">call</span><span class="p">,</span> <span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">call</span> <span class="o">!==</span> <span class="s2">&quot;function&quot;</span><span class="p">)</span> <span class="p">{</span>
       <span class="k">throw</span> <span class="s2">&quot;Qretry: call must be a function&quot;</span><span class="p">;</span>
     <span class="p">}</span>
@@ -32,13 +30,11 @@
           <span class="nx">options</span><span class="p">[</span><span class="nx">k</span><span class="p">]</span> <span class="o">=</span> <span class="nx">Qretry</span><span class="p">.</span><span class="nx">DEFAULT_OPTIONS</span><span class="p">[</span><span class="nx">k</span><span class="p">];</span>
         <span class="p">}</span>
       <span class="p">}</span>
-    <span class="p">}</span>
-
-    <span class="kd">function</span> <span class="nx">resolver</span> <span class="p">(</span><span class="nx">remainingTry</span><span class="p">,</span> <span class="nx">interval</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">}</span></pre></div>             </td>           </tr>                               <tr id="section-3">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-3">&#182;</a>               </div>               <p>Recursive resolver</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="kd">function</span> <span class="nx">resolver</span> <span class="p">(</span><span class="nx">remainingTry</span><span class="p">,</span> <span class="nx">interval</span><span class="p">)</span> <span class="p">{</span>
       <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">Q</span><span class="p">.</span><span class="nx">fcall</span><span class="p">(</span><span class="nx">call</span><span class="p">);</span>
       <span class="k">if</span> <span class="p">(</span><span class="nx">remainingTry</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">return</span> <span class="nx">result</span><span class="p">;</span>
-      <span class="p">}</span></pre></div>             </td>           </tr>                               <tr id="section-3">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-3">&#182;</a>               </div>               <p>In case of failure, wait the interval, retry the call</p>             </td>             <td class="code">               <div class="highlight"><pre>      <span class="k">return</span> <span class="nx">result</span><span class="p">.</span><span class="nx">fail</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+      <span class="p">}</span></pre></div>             </td>           </tr>                               <tr id="section-4">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-4">&#182;</a>               </div>               <p>In case of failure, wait the interval, retry the call</p>             </td>             <td class="code">               <div class="highlight"><pre>      <span class="k">return</span> <span class="nx">result</span><span class="p">.</span><span class="nx">fail</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">return</span> <span class="nx">Q</span><span class="p">.</span><span class="nx">delay</span><span class="p">(</span><span class="nx">interval</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
           <span class="k">return</span> <span class="nx">resolver</span><span class="p">(</span><span class="nx">remainingTry</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nx">interval</span><span class="o">*</span><span class="nx">options</span><span class="p">.</span><span class="nx">intervalMultiplicator</span><span class="p">);</span>
         <span class="p">});</span>
@@ -46,9 +42,7 @@
     <span class="p">}</span>
 
     <span class="k">return</span> <span class="nx">resolver</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">maxRetry</span><span class="p">,</span> <span class="nx">options</span><span class="p">.</span><span class="nx">interval</span><span class="p">);</span>
-  <span class="p">};</span>
-
-  <span class="nx">Qretry</span><span class="p">.</span><span class="nx">DEFAULT_OPTIONS</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="p">};</span></pre></div>             </td>           </tr>                               <tr id="section-5">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-5">&#182;</a>               </div>               <p>Default options</p>             </td>             <td class="code">               <div class="highlight"><pre>  <span class="nx">Qretry</span><span class="p">.</span><span class="nx">DEFAULT_OPTIONS</span> <span class="o">=</span> <span class="p">{</span>
     <span class="nx">maxRetry</span><span class="o">:</span> <span class="mi">5</span><span class="p">,</span>
     <span class="nx">interval</span><span class="o">:</span> <span class="mi">500</span><span class="p">,</span>
     <span class="nx">intervalMultiplicator</span><span class="o">:</span> <span class="mf">1.5</span>
