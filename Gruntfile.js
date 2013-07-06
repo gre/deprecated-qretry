@@ -2,6 +2,9 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+    qunit: {
+      all: ['test/*.html']
+    },
     uglify: {
       options: {
         banner: '/*! <%= pkg.name %> <%= pkg.version %> - <%= pkg.description %> */\n'
@@ -35,8 +38,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-qunit');
   grunt.loadNpmTasks('grunt-docco');
 
   grunt.registerTask('default', ['jshint', 'uglify', 'docco']);
+  grunt.registerTask('test', 'qunit');
 
 };
