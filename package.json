@@ -21,6 +21,6 @@
   "license": "BSD",
   "repository": {
     "type": "git",
-    "url": "git://github.com/gre/qimage.git"
+    "url": "git://github.com/gre/qretry.git"
   }
 }
