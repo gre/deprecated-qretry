@@ -1,4 +1,13 @@
-(function(){
+
+(function (definition) {
+    if (typeof exports === "object") {
+        module.exports = definition();
+    } else {
+        window.Qretry = definition();
+    }
+})(function () {
+
+  var Q = window.Q || require("q");
 
   // Qretry
   // =====
@@ -59,6 +68,6 @@
     intervalMultiplicator: 1.5
   };
 
-  window.Qretry = Qretry;
+  return Qretry;
 
-}());
+});
