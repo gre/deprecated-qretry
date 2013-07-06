@@ -52,7 +52,7 @@ Qretry(function () {
 var startTime = new Date();
 Qretry(function () {
   console.log("action at "+((new Date()-startTime)/1000)+"s");
-  // returned value is not nece
+  // this retry system also work with exceptions (Q unifies exceptions as rejected Promise)
   if (Math.random()<0.8) throw "failure";
   return "<success!>";
 }, { maxRetry: 8, interval: 100, intervalMultiplicator: 2 })
