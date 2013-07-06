@@ -19,7 +19,7 @@ Usage
 
 `Qretry` takes an action *function* and returns a *Promise of result* where result is the first successful value resulting from the action call or a failure if the retry reached his limit (this failure Promise is the last failed Promise from call).
 
-**Qretry(action: (() => Promise[R]), options) => Promise[R]**
+**`Qretry(action: (=> R or Promise[R]), options: Object) => Promise[R]`**
 
 `options` is an object with optional parameters:
 
@@ -27,7 +27,7 @@ Usage
 * `interval` **(Number)** *optional*: set the initial interval in milliseconds between the first and the second call. (default is 500)
 * `intervalMultiplicator` **(Number >= 1)** *optional*: set the multiplicator which increase the interval through tries. (default is 1.5)
 
-### Simple example:
+### Simple example
 
 ```javascript
 var promise = Qretry(function () {
@@ -35,7 +35,7 @@ var promise = Qretry(function () {
 });
 ```
 
-### Example with Qajax:
+### Example with Qajax
 
 ```javascript
 Qretry(function () {
@@ -46,5 +46,34 @@ Qretry(function () {
 });
 ```
 
+### Random example
 
+```javascript
+var startTime = new Date();
+Qretry(function () {
+  console.log("action at "+((new Date()-startTime)/1000)+"s");
+  // returned value is not nece
+  if (Math.random()<0.8) throw "failure";
+  return "<success!>";
+}, { maxRetry: 8, interval: 100, intervalMultiplicator: 2 })
+.then(function (item) {
+  console.log(item);
+}, function (err) {
+  console.error(err);
+});
+```
 
+will eventually log:
+
+```
+action at 0s
+action at 0.101s
+action at 0.303s
+action at 0.704s
+action at 1.506s
+action at 3.108s
+action at 6.31s
+<success!>
+```
+
+if action fail 6 times and succeed at the 7th time.
