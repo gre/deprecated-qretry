@@ -8,7 +8,7 @@
   ],
   "author": "Gaëtan Renaudeau <renaudeau.gaetan@gmail.com>",
   "dependencies": {
-    "q": "0.9.x"
+    "q": "1.0.x"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
