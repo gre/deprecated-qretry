@@ -1,13 +1,10 @@
-
 (function (definition) {
     if (typeof exports === "object") {
-        module.exports = definition();
+        module.exports = definition(require("q"));
     } else {
-        window.Qretry = definition();
+        window.Qretry = definition(window.Q);
     }
-})(function () {
-
-  var Q = window.Q || require("q");
+})(function (Q) {
 
   // Qretry
   // =====
@@ -70,3 +67,4 @@
 
   return Qretry;
 });
+
